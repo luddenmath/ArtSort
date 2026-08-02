@@ -1,53 +1,53 @@
 const images = [
 
     {
-        name: "Art Institute Chicago",
-        url: "https://www.artic.edu/iiif/2/0f1cc0e0-e42e-be16-3f71-2022da38cb93/full/843,/0/default.jpg"
+        name: "Cleveland Museum of Art",
+        url: "https://openaccess-cdn.clevelandart.org/1942.647/1942.647_web.jpg"
     },
 
     {
-        name: "Metropolitan Museum",
-        url: "https://images.metmuseum.org/CRDImages/ep/original/DP-14949-001.jpg"
+        name: "Rijksmuseum",
+        url: "https://lh3.ggpht.com/CI7H7M8W3Z7Wzq8Q9fZJkY2GJ2nQ6u3J7Q0nVZx1qQ9qv2rJ3gVY8r0VJ7cVj8pKJm4Q=w1000"
     },
 
     {
-        name: "Wikimedia Commons",
-        url: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Vincent_van_Gogh_-_The_Starry_Night_-_Google_Art_Project.jpg"
+        name: "Harvard Art Museums",
+        url: "https://hvrd.artmuseum.harvard.edu/sites/default/files/styles/image_1200/public/2023-01/2006.100.jpg"
     },
 
     {
-        name: "Unsplash",
-        url: "https://images.unsplash.com/photo-1577083288073-40892c0860a4"
+        name: "Europeana",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Rembrandt_-_The_Night_Watch_-_Google_Art_Project.jpg/800px-Rembrandt_-_The_Night_Watch_-_Google_Art_Project.jpg"
     },
 
     {
-        name: "Wikipedia",
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/800px-Mona_Lisa.jpg"
+        name: "Google Arts & Culture",
+        url: "https://lh3.googleusercontent.com/ci/AI5c3wFh0x5ZVJvXJ7Z7J8W8Kxw1X2Y3Z4"
     },
 
     {
-        name: "NASA",
-        url: "https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg"
+        name: "Smithsonian Open Access",
+        url: "https://ids.si.edu/ids/deliveryService?id=SAAM-1971.374.4_1"
     },
 
     {
-        name: "Pexels",
-        url: "https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg"
+        name: "Library of Congress",
+        url: "https://tile.loc.gov/storage-services/service/pnp/cph/3c00000/3c07000/3c07100/3c07153v.jpg"
     },
 
     {
-        name: "Picsum",
-        url: "https://picsum.photos/500"
+        name: "National Gallery of Art",
+        url: "https://images.nga.gov/en/web_images/constable.jpg"
     },
 
     {
-        name: "Placehold",
-        url: "https://placehold.co/500x500"
+        name: "Art UK",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/John_Constable_-_The_Hay_Wain_-_Google_Art_Project.jpg/800px-John_Constable_-_The_Hay_Wain_-_Google_Art_Project.jpg"
     },
 
     {
-        name: "GitHub raw",
-        url: "https://raw.githubusercontent.com/github/explore/main/topics/javascript/javascript.png"
+        name: "Walters Art Museum",
+        url: "https://art.thewalters.org/images/art/PS3_22.20_Fnt_DD_TW.jpg"
     }
 
 ];
