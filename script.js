@@ -1,5 +1,5 @@
 const API =
-"https://openaccess-api.clevelandart.org/api/artworks/?limit=100&q=painting";
+"https://openaccess-api.clevelandart.org/api/artworks/?limit=1000&q=painting";
 
 
 let artworks=[];
