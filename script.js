@@ -1,43 +1,106 @@
 const API =
-"https://openaccess-api.clevelandart.org/api/artworks/?limit=10&q=painting";
+"https://openaccess-api.clevelandart.org/api/artworks/?limit=100&q=painting";
 
 
-async function load(){
+let artworks=[];
+
+let leftPainting;
+let rightPainting;
+
+
+async function init(){
 
     const response = await fetch(API);
 
     const data = await response.json();
 
-    console.log(data);
 
-    const artworks = data.data.filter(
-        x => x.images && x.images.web
+    artworks = data.data.filter(
+        art => art.images && art.images.web
     );
 
-    console.log(artworks);
+
+    console.log("Loaded:", artworks.length);
 
 
-    artworks.forEach(art => {
-
-        const img = new Image();
-
-        img.width = 300;
-
-        img.src = art.images.web.url;
-
-        document.body.appendChild(img);
-
-
-        const text=document.createElement("p");
-
-        text.innerHTML =
-        `${art.title}<br>${art.creators?.[0]?.description || ""}`;
-
-        document.body.appendChild(text);
-
-    });
+    nextPair();
 
 }
 
 
-load();
+
+function nextPair(){
+
+    leftPainting = randomArtwork();
+
+    rightPainting = randomArtwork();
+
+
+    while(leftPainting.id === rightPainting.id){
+
+        rightPainting=randomArtwork();
+
+    }
+
+
+    document.getElementById("leftImage").src =
+        leftPainting.images.web.url;
+
+
+    document.getElementById("rightImage").src =
+        rightPainting.images.web.url;
+
+
+    document.getElementById("result").innerHTML="";
+
+}
+
+
+
+function randomArtwork(){
+
+    return artworks[
+        Math.floor(Math.random()*artworks.length)
+    ];
+
+}
+
+
+
+document
+.getElementById("leftCard")
+.onclick=function(){
+
+    choose(leftPainting);
+
+};
+
+
+document
+.getElementById("rightCard")
+.onclick=function(){
+
+    choose(rightPainting);
+
+};
+
+
+
+function choose(winner){
+
+    console.log("Choice:", winner);
+
+    document.getElementById("result").innerHTML =
+    `
+    You chose:<br>
+    <b>${winner.title}</b>
+    `;
+
+
+    setTimeout(nextPair,1500);
+
+}
+
+
+
+init();
