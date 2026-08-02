@@ -8,6 +8,12 @@ let leftPainting;
 let rightPainting;
 
 
+let ratings = JSON.parse(
+    localStorage.getItem("artRatings")
+) || {};
+
+
+
 async function init(){
 
     const response = await fetch(API);
@@ -29,14 +35,32 @@ async function init(){
 
 
 
+function getRating(art){
+
+    if(!ratings[art.id]){
+
+        ratings[art.id]={
+            elo:1500,
+            wins:0,
+            losses:0
+        };
+
+    }
+
+    return ratings[art.id];
+
+}
+
+
+
 function nextPair(){
 
-    leftPainting = randomArtwork();
+    leftPainting=randomArtwork();
 
-    rightPainting = randomArtwork();
+    rightPainting=randomArtwork();
 
 
-    while(leftPainting.id === rightPainting.id){
+    while(leftPainting.id===rightPainting.id){
 
         rightPainting=randomArtwork();
 
@@ -71,7 +95,7 @@ document
 .getElementById("leftCard")
 .onclick=function(){
 
-    choose(leftPainting);
+    choose(leftPainting,rightPainting);
 
 };
 
@@ -80,24 +104,88 @@ document
 .getElementById("rightCard")
 .onclick=function(){
 
-    choose(rightPainting);
+    choose(rightPainting,leftPainting);
 
 };
 
 
 
-function choose(winner){
 
-    console.log("Choice:", winner);
+
+function choose(winner,loser){
+
+    updateElo(winner,loser);
+
+
+    saveRatings();
+
 
     document.getElementById("result").innerHTML =
     `
-    You chose:<br>
+    Winner:<br>
     <b>${winner.title}</b>
+    <br><br>
+
+    Rating:
+    ${Math.round(getRating(winner).elo)}
+
     `;
 
 
     setTimeout(nextPair,1500);
+
+}
+
+
+
+
+
+function updateElo(winner,loser){
+
+    let winnerRating=getRating(winner);
+
+    let loserRating=getRating(loser);
+
+
+    let expectedWinner =
+        1 /
+        (
+            1 +
+            Math.pow(
+                10,
+                (loserRating.elo - winnerRating.elo)/400
+            )
+        );
+
+
+    const K=32;
+
+
+    winnerRating.elo +=
+        K*(1-expectedWinner);
+
+
+    loserRating.elo +=
+        K*(0- (1-expectedWinner));
+
+
+    winnerRating.wins++;
+
+    loserRating.losses++;
+
+
+}
+
+
+
+
+
+function saveRatings(){
+
+    localStorage.setItem(
+        "artRatings",
+        JSON.stringify(ratings)
+    );
 
 }
 
