@@ -1,6 +1,6 @@
 const API =
 "https://api.artic.edu/api/v1/artworks/search?q=painting&fields=id,title,image_id,artist_title,date_display&page=1&limit=100";
-
+//ver 2
 let artworks = [];
 let currentLeft;
 let currentRight;
@@ -44,8 +44,8 @@ function showPair(){
 
     }
 
-    leftImage.src=imageURL(currentLeft.image_id);
-    rightImage.src=imageURL(currentRight.image_id);
+document.getElementById("leftImage").src = imageURL(currentLeft.image_id);
+document.getElementById("rightImage").src = imageURL(currentRight.image_id);
 
 }
 
