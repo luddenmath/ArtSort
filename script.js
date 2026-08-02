@@ -85,20 +85,7 @@ async function nextPair(){
     }
 
 
-    document.getElementById("leftImage").src =
-        leftPainting.images.web.url;
 
-
-    document.getElementById("rightImage").src =
-        rightPainting.images.web.url;
-
-
-
-    // start preparing the next choice
-
-    preloadNextPair();
-
-}
 
 async function preloadNextPair(){
 
