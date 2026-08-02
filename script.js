@@ -36,16 +36,64 @@ function imageURL(imageID){
 function showPair(){
 
     currentLeft = randomArtwork();
-    currentRight = randomArtwork();
 
-    while(currentLeft.id===currentRight.id){
+    const url = imageURL(currentLeft.image_id);
 
-        currentRight=randomArtwork();
+    console.log("Testing:", url);
 
-    }
+    document.getElementById("tests").innerHTML = `
 
-document.getElementById("leftImage").src = imageURL(currentLeft.image_id);
-document.getElementById("rightImage").src = imageURL(currentRight.image_id);
+        <h2>Original img src</h2>
+        <img src="${url}" width="300">
+
+        <h2>Created with JavaScript</h2>
+        <div id="test2"></div>
+
+        <h2>Background image</h2>
+        <div id="test3" style="
+            width:300px;
+            height:300px;
+            background-size:contain;
+            background-repeat:no-repeat;
+            background-position:center;
+        "></div>
+
+        <h2>Object URL blob</h2>
+        <div id="test4"></div>
+
+        <h2>Figure tag</h2>
+        <figure>
+            <img src="${url}" width="300">
+        </figure>
+
+    `;
+
+
+    // Method 2: createElement
+    let img = document.createElement("img");
+    img.src = url;
+    img.width = 300;
+    document.getElementById("test2").appendChild(img);
+
+
+    // Method 3: CSS background
+    document.getElementById("test3").style.backgroundImage =
+        `url("${url}")`;
+
+
+    // Method 4: fetch blob
+    fetch(url)
+    .then(response=>response.blob())
+    .then(blob=>{
+
+        let blobImg=document.createElement("img");
+        blobImg.src=URL.createObjectURL(blob);
+        blobImg.width=300;
+
+        document.getElementById("test4")
+        .appendChild(blobImg);
+
+    });
 
 }
 
