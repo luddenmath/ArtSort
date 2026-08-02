@@ -485,4 +485,127 @@ function trackPreference(art){
 
 }
 
+
+
+function analyzeMetadata(art){
+
+    let text = (
+        art.title +
+        " " +
+        art.description +
+        " " +
+        art.type +
+        " " +
+        art.department
+    )
+    .toLowerCase();
+
+
+
+    let fingerprint = {
+
+        subject: [],
+
+        movement: [],
+
+        era: null,
+
+        technique: art.technique,
+
+        culture: art.culture
+
+    };
+
+
+
+    // SUBJECTS
+
+    const subjects = {
+
+        "Landscape":[
+            "landscape",
+            "mountain",
+            "river",
+            "forest",
+            "wilderness",
+            "sea",
+            "ocean"
+        ],
+
+        "Portrait":[
+            "portrait",
+            "self-portrait",
+            "woman",
+            "man",
+            "child",
+            "figure"
+        ],
+
+        "Still Life":[
+            "still life",
+            "flowers",
+            "fruit",
+            "vase"
+        ],
+
+        "Animals":[
+            "animal",
+            "horse",
+            "bird",
+            "dog"
+        ],
+
+        "Abstract":[
+            "abstract",
+            "nonobjective",
+            "geometric"
+        ]
+
+    };
+
+
+
+    for(let subject in subjects){
+
+        if(
+            subjects[subject]
+            .some(word=>text.includes(word))
+        ){
+
+            fingerprint.subject.push(subject);
+
+        }
+
+    }
+
+
+
+    // ERA
+
+    let year =
+    art.creation_date_earliest;
+
+
+    if(year){
+
+        if(year < 1800)
+            fingerprint.era="Before 1800";
+
+        else if(year < 1900)
+            fingerprint.era="1800s";
+
+        else if(year < 1950)
+            fingerprint.era="Early 1900s";
+
+        else
+            fingerprint.era="Modern";
+
+    }
+
+
+
+    return fingerprint;
+
+}
+
 init();
