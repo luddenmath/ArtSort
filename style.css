@@ -1,37 +1,11 @@
-body{
-    margin:0;
-    background:#222;
-    color:white;
-    font-family:Arial,sans-serif;
-    text-align:center;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #222;
+    color: white;
 }
 
-h1{
-    margin:20px;
-}
-
-#gallery{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    padding:20px;
-}
-
-.card{
-    width:45%;
-    max-width:600px;
-    cursor:pointer;
-}
-
-.card img{
-    width:100%;
-    height:75vh;
-    object-fit:contain;
-    background:#111;
-    border-radius:10px;
-    transition:.2s;
-}
-
-.card img:hover{
-    transform:scale(1.02);
+#imageContainer img {
+    max-width: 600px;
+    margin: 20px;
 }
