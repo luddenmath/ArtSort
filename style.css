@@ -36,6 +36,26 @@ body {
 }
 
 
+button {
+
+    margin:20px;
+    padding:12px 25px;
+    font-size:18px;
+    cursor:pointer;
+
+}
+
+
+#taste {
+
+    background:#333;
+    padding:20px;
+    margin:20px auto;
+    max-width:800px;
+    text-align:left;
+
+}
+
 .card:hover img {
 
     transform:scale(1.03);
