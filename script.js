@@ -116,6 +116,7 @@ function choose(winner,loser){
 
     updateElo(winner,loser);
 
+    trackPreference(winner);
 
     saveRatings();
 
@@ -202,6 +203,12 @@ document
 
 function showTaste(){
 
+
+    let profile =
+JSON.parse(
+    localStorage.getItem("artProfile")
+) || {};
+    
     let ranked =
     Object.entries(ratings)
 
@@ -271,12 +278,117 @@ function showTaste(){
 
     });
 
+html += "<h2>Your Style Profile</h2>";
 
+
+
+function showCategory(name){
+
+    if(!profile[name]) return;
+
+
+    let sorted =
+    Object.entries(profile[name])
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,5);
+
+
+    html += `<h3>${name}</h3>`;
+
+
+    sorted.forEach(item=>{
+
+        html += `
+        ${item[0]}
+        —
+        ${item[1]} choices
+        <br>
+        `;
+
+    });
+
+}
+
+
+
+showCategory("artists");
+
+showCategory("culture");
+
+showCategory("department");
+
+showCategory("type");
+
+showCategory("classification");
 
     document.getElementById("taste").innerHTML=html;
 
 
     document.getElementById("taste").style.display="block";
+
+}
+
+function trackPreference(art){
+
+    let profile =
+    JSON.parse(
+        localStorage.getItem("artProfile")
+    ) || {};
+
+
+    function add(category,value){
+
+        if(!value) return;
+
+
+        if(!profile[category]){
+
+            profile[category]={};
+
+        }
+
+
+        profile[category][value] =
+        (profile[category][value] || 0)+1;
+
+    }
+
+
+
+    add(
+        "artists",
+        art.creators?.[0]?.description
+    );
+
+
+    add(
+        "culture",
+        art.culture
+    );
+
+
+    add(
+        "department",
+        art.department
+    );
+
+
+    add(
+        "type",
+        art.type
+    );
+
+
+    add(
+        "classification",
+        art.classification
+    );
+
+
+    localStorage.setItem(
+        "artProfile",
+        JSON.stringify(profile)
+    );
 
 }
 
