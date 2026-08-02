@@ -9,6 +9,7 @@ let rightPainting;
 
 let nextLeftPainting;
 let nextRightPainting;
+let seenPairs = [];
 
 let ratings = JSON.parse(
     localStorage.getItem("artRatings")
@@ -146,9 +147,27 @@ async function preloadNextPair(){
 
 function randomArtwork(){
 
-    return artworks[
-        Math.floor(Math.random()*artworks.length)
-    ];
+    let art;
+
+
+    do {
+
+        art =
+        artworks[
+            Math.floor(
+                Math.random()*artworks.length
+            )
+        ];
+
+
+    } while(
+
+        seenPairs.includes(art.id)
+
+    );
+
+
+    return art;
 
 }
 
