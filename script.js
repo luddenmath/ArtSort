@@ -356,17 +356,28 @@ JSON.parse(
 
 html += "<h2>Your Style Profile</h2>";
 
+html = showCategory("artists", profile, html);
+html = showCategory("culture", profile, html);
+html = showCategory("department", profile, html);
+html = showCategory("type", profile, html);
+html = showCategory("classification", profile, html);
+
+    document.getElementById("taste").innerHTML=html;
 
 
-function showCategory(name){
+    document.getElementById("taste").style.display="block";
 
-    if(!profile[name]) return;
+}
 
+
+function showCategory(name, profile, html){
+
+    if(!profile[name]) return html;
 
     let sorted =
-    Object.entries(profile[name])
-    .sort((a,b)=>b[1]-a[1])
-    .slice(0,5);
+        Object.entries(profile[name])
+        .sort((a,b)=>b[1]-a[1])
+        .slice(0,5);
 
 
     html += `<h3>${name}</h3>`;
@@ -383,25 +394,7 @@ function showCategory(name){
 
     });
 
-}
-
-
-
-showCategory("artists");
-
-showCategory("culture");
-
-showCategory("department");
-
-showCategory("type");
-
-showCategory("classification");
-
-    document.getElementById("taste").innerHTML=html;
-
-
-    document.getElementById("taste").style.display="block";
-
+    return html;
 }
 
 function trackPreference(art){
