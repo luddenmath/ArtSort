@@ -43,58 +43,20 @@ function showPair(){
 
     document.getElementById("tests").innerHTML = `
 
-        <h2>Original img src</h2>
-        <img src="${url}" width="300">
+        <h2>Direct HTML img</h2>
+        <img src="${url}" width="500">
 
-        <h2>Created with JavaScript</h2>
-        <div id="test2"></div>
-
-        <h2>Background image</h2>
-        <div id="test3" style="
-            width:300px;
-            height:300px;
+        <h2>CSS background</h2>
+        <div style="
+            width:500px;
+            height:500px;
+            background-image:url('${url}');
             background-size:contain;
             background-repeat:no-repeat;
             background-position:center;
         "></div>
 
-        <h2>Object URL blob</h2>
-        <div id="test4"></div>
-
-        <h2>Figure tag</h2>
-        <figure>
-            <img src="${url}" width="300">
-        </figure>
-
     `;
-
-
-    // Method 2: createElement
-    let img = document.createElement("img");
-    img.src = url;
-    img.width = 300;
-    document.getElementById("test2").appendChild(img);
-
-
-    // Method 3: CSS background
-    document.getElementById("test3").style.backgroundImage =
-        `url("${url}")`;
-
-
-    // Method 4: fetch blob
-    fetch(url)
-    .then(response=>response.blob())
-    .then(blob=>{
-
-        let blobImg=document.createElement("img");
-        blobImg.src=URL.createObjectURL(blob);
-        blobImg.width=300;
-
-        document.getElementById("test4")
-        .appendChild(blobImg);
-
-    });
-
 }
 
 init();
