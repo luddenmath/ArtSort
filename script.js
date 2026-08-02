@@ -309,93 +309,158 @@ document
 
 function showTaste(){
 
-
-    let profile =
+let profile =
 JSON.parse(
-    localStorage.getItem("artProfile")
+localStorage.getItem("artProfile")
 ) || {};
-    
-    let ranked =
-    Object.entries(ratings)
-
-    .map(([id,data])=>{
-
-        let art =
-        artworks.find(a=>a.id==id);
-
-        return {
-
-            ...data,
-            art
-
-        };
-
-    })
-
-    .filter(x=>x.art)
-
-    .sort(
-        (a,b)=>b.elo-a.elo
-    );
 
 
+let ranked =
+Object.entries(ratings)
 
-    let html = `
-    <h2>Your Favorite Paintings</h2>
-    `;
+.map(([id,data])=>{
+
+    let art =
+    artworks.find(a=>a.id==id);
+
+    return {
+        ...data,
+        art
+    };
+
+})
+
+.filter(x=>x.art)
+
+.sort(
+(a,b)=>b.elo-a.elo
+);
 
 
 
-    ranked
-    .slice(0,10)
-    .forEach(item=>{
+let html = `
 
-        html += `
+<h1>🎨 Your Art Profile</h1>
 
-        <div style="margin-bottom:20px">
+<h2>🏆 Favorite Paintings</h2>
 
-        <img src="${item.art.images.web.url}"
-        width="150">
-
-        <br>
-
-        <b>${item.art.title}</b>
-
-        <br>
-
-        ${item.art.creators?.[0]?.description || ""}
-
-        <br>
-
-        Rating:
-        ${Math.round(item.elo)}
-
-        <br>
-
-        Wins:
-        ${item.wins}
-
-        Losses:
-        ${item.losses}
-
-        </div>
-
-        `;
-
-    });
-
-html += "<h2>Your Style Profile</h2>";
-
-html = showCategory("artists", profile, html);
-html = showCategory("culture", profile, html);
-html = showCategory("department", profile, html);
-html = showCategory("type", profile, html);
-html = showCategory("classification", profile, html);
-
-    document.getElementById("taste").innerHTML=html;
+`;
 
 
-    document.getElementById("taste").style.display="block";
+
+ranked
+.slice(0,10)
+.forEach(item=>{
+
+
+let fp =
+item.art.fingerprint || {};
+
+
+html += `
+
+<div class="tasteCard">
+
+<img src="${item.art.images.web.url}"
+width="180">
+
+
+<div>
+
+<h3>${item.art.title}</h3>
+
+<b>
+${item.art.creators?.[0]?.description || ""}
+</b>
+
+
+<p>
+Rating:
+${Math.round(item.elo)}
+</p>
+
+
+<p>
+Wins:
+${item.wins}
+&nbsp;
+Losses:
+${item.losses}
+</p>
+
+
+<p>
+
+${fp.subject?.join(" • ") || ""}
+
+<br>
+
+${fp.era || ""}
+
+<br>
+
+${item.art.technique || ""}
+
+</p>
+
+
+</div>
+
+</div>
+
+
+`;
+
+});
+
+
+
+html += `
+
+<h2>🎨 Style Profile</h2>
+
+`;
+
+
+
+html =
+showCategory(
+"artists",
+profile,
+html
+);
+
+
+html =
+showCategory(
+"culture",
+profile,
+html
+);
+
+
+html =
+showCategory(
+"department",
+profile,
+html
+);
+
+
+html =
+showCategory(
+"type",
+profile,
+html
+);
+
+
+
+document.getElementById("taste").innerHTML=html;
+
+
+document.getElementById("taste").style.display="block";
+
 
 }
 
