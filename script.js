@@ -37,86 +37,51 @@ function showPair(){
 
     currentLeft = randomArtwork();
 
-    const url = imageURL(currentLeft.image_id);
+    const id = currentLeft.image_id;
 
-    console.log("Testing:", url);
+    const urls = [
+        `https://www.artic.edu/iiif/2/${id}/full/843,/0/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/400,/0/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/200,/0/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/max/0/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/843,/1/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/843,/90/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/843,/default.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/843,/0/jpg.jpg`,
+        `https://www.artic.edu/iiif/2/${id}/full/843,/0/default.png`,
+        `https://www.artic.edu/iiif/2/${id}/full/full/0/default.jpg`
+    ];
 
-    document.getElementById("tests").innerHTML = `
+    console.log(urls);
 
-    <h1>Image Loading Test</h1>
+    document.getElementById("tests").innerHTML =
+    urls.map((url,i)=>`
 
-    <h2>1. Plain img src</h2>
-    <img src="${url}" width="300">
+        <div style="
+            display:inline-block;
+            margin:20px;
+            width:300px;
+            vertical-align:top;
+        ">
 
-    <h2>2. JavaScript createElement</h2>
-    <div id="test2"></div>
+        <h3>${i+1}</h3>
 
-    <h2>3. innerHTML injected img</h2>
-    <div>
-        <img src="${url}" width="300">
-    </div>
+        <img 
+            src="${url}"
+            width="300"
+            style="
+                min-height:200px;
+                background:#ddd;
+            "
+        >
 
-    <h2>4. CSS background</h2>
-    <div style="
-        width:300px;
-        height:300px;
-        background:url('${url}') center/contain no-repeat;
-    "></div>
+        <p style="font-size:10px;word-break:break-all;">
+        ${url}
+        </p>
 
-    <h2>5. Object Image()</h2>
-    <div id="test5"></div>
+        </div>
 
-    <h2>6. Picture element</h2>
-    <picture>
-        <img src="${url}" width="300">
-    </picture>
-
-    <h2>7. Figure element</h2>
-    <figure>
-        <img src="${url}" width="300">
-    </figure>
-
-    <h2>8. Link wrapped image</h2>
-    <a href="${url}" target="_blank">
-        <img src="${url}" width="300">
-    </a>
-
-    <h2>9. SVG image embed</h2>
-    <svg width="300" height="300">
-        <image href="${url}" width="300" height="300"/>
-    </svg>
-
-    <h2>10. Canvas draw</h2>
-    <canvas id="test10" width="300" height="300"></canvas>
-
-    `;
-
-
-    // Method 2
-    let img2=document.createElement("img");
-    img2.src=url;
-    img2.width=300;
-    document.getElementById("test2").appendChild(img2);
-
-
-    // Method 5
-    let img5=new Image();
-    img5.src=url;
-    img5.width=300;
-    document.getElementById("test5").appendChild(img5);
-
-
-    // Method 10
-    let img10=new Image();
-    img10.onload=function(){
-
-        let canvas=document.getElementById("test10");
-        let ctx=canvas.getContext("2d");
-
-        ctx.drawImage(img10,0,0,300,300);
-
-    };
-    img10.src=url;
+    `).join("");
 
 }
 
