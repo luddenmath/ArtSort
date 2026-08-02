@@ -548,6 +548,25 @@ function trackPreference(art){
         art.classification
     );
 
+    
+
+add(
+"subject",
+art.fingerprint?.subject?.join(", ")
+);
+
+
+add(
+"era",
+art.fingerprint?.era
+);
+
+
+add(
+"technique",
+art.technique
+);
+
 
     localStorage.setItem(
         "artProfile",
