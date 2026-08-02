@@ -85,7 +85,25 @@ async function nextPair(){
 
     }
 
+
+    document.getElementById("leftImage").src =
+        leftPainting.images.web.url;
+
+
+    document.getElementById("rightImage").src =
+        rightPainting.images.web.url;
+
+
+    document.getElementById("result").innerHTML="";
+
+
+    preloadNextPair();
+
 }
+
+
+
+async function preloadNextPair(){
 
 
 async function preloadNextPair(){
