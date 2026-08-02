@@ -28,6 +28,12 @@ async function init(){
         art => art.images && art.images.web
     );
 
+    artworks.forEach(art=>{
+
+    art.fingerprint =
+    analyzeMetadata(art);
+
+});
 
     console.log("Loaded:", artworks.length);
 
