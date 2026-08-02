@@ -56,6 +56,37 @@ button {
 
 }
 
+.tasteCard{
+
+display:flex;
+gap:20px;
+
+padding:15px;
+margin:15px;
+
+border:1px solid #ddd;
+border-radius:10px;
+
+background:white;
+
+}
+
+
+.tasteCard img{
+
+object-fit:contain;
+
+max-height:200px;
+
+}
+
+
+.tasteCard h3{
+
+margin-top:0;
+
+}
+
 .card:hover img {
 
     transform:scale(1.03);
