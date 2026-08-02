@@ -189,6 +189,95 @@ function saveRatings(){
 
 }
 
+document
+.getElementById("tasteButton")
+.onclick=function(){
 
+    showTaste();
+
+};
+
+
+
+
+function showTaste(){
+
+    let ranked =
+    Object.entries(ratings)
+
+    .map(([id,data])=>{
+
+        let art =
+        artworks.find(a=>a.id==id);
+
+        return {
+
+            ...data,
+            art
+
+        };
+
+    })
+
+    .filter(x=>x.art)
+
+    .sort(
+        (a,b)=>b.elo-a.elo
+    );
+
+
+
+    let html = `
+    <h2>Your Favorite Paintings</h2>
+    `;
+
+
+
+    ranked
+    .slice(0,10)
+    .forEach(item=>{
+
+        html += `
+
+        <div style="margin-bottom:20px">
+
+        <img src="${item.art.images.web.url}"
+        width="150">
+
+        <br>
+
+        <b>${item.art.title}</b>
+
+        <br>
+
+        ${item.art.creators?.[0]?.description || ""}
+
+        <br>
+
+        Rating:
+        ${Math.round(item.elo)}
+
+        <br>
+
+        Wins:
+        ${item.wins}
+
+        Losses:
+        ${item.losses}
+
+        </div>
+
+        `;
+
+    });
+
+
+
+    document.getElementById("taste").innerHTML=html;
+
+
+    document.getElementById("taste").style.display="block";
+
+}
 
 init();
