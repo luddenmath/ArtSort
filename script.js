@@ -7,6 +7,8 @@ let artworks=[];
 let leftPainting;
 let rightPainting;
 
+let nextLeftPainting;
+let nextRightPainting;
 
 let ratings = JSON.parse(
     localStorage.getItem("artRatings")
@@ -53,18 +55,92 @@ function getRating(art){
 
 
 
-function nextPair(){
+async function nextPair(){
 
-    leftPainting=randomArtwork();
+    // If we already prepared a pair,
+    // use it immediately
 
-    rightPainting=randomArtwork();
+    if(nextLeftPainting && nextRightPainting){
 
+        leftPainting = nextLeftPainting;
+        rightPainting = nextRightPainting;
 
-    while(leftPainting.id===rightPainting.id){
+        nextLeftPainting = null;
+        nextRightPainting = null;
+
+    }
+    else {
+
+        leftPainting=randomArtwork();
 
         rightPainting=randomArtwork();
 
+
+        while(leftPainting.id===rightPainting.id){
+
+            rightPainting=randomArtwork();
+
+        }
+
     }
+
+
+    document.getElementById("leftImage").src =
+        leftPainting.images.web.url;
+
+
+    document.getElementById("rightImage").src =
+        rightPainting.images.web.url;
+
+
+
+    // start preparing the next choice
+
+    preloadNextPair();
+
+}
+
+async function preloadNextPair(){
+
+    nextLeftPainting=randomArtwork();
+
+    nextRightPainting=randomArtwork();
+
+
+    while(
+        nextLeftPainting.id===
+        nextRightPainting.id
+    ){
+
+        nextRightPainting=randomArtwork();
+
+    }
+
+
+    // force browser to download them
+
+    const img1=new Image();
+
+    img1.src=
+    nextLeftPainting.images.web.url;
+
+
+
+    const img2=new Image();
+
+    img2.src=
+    nextRightPainting.images.web.url;
+
+
+
+    console.log(
+        "Preloaded:",
+        nextLeftPainting.title,
+        "vs",
+        nextRightPainting.title
+    );
+
+}
 
 
     document.getElementById("leftImage").src =
@@ -133,7 +209,7 @@ function choose(winner,loser){
     `;
 
 
-    setTimeout(nextPair,1500);
+    setTimeout(nextPair,300);
 
 }
 
